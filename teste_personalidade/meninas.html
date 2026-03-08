@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de personalidade</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    img {
+        width: 20vw;
+        height: 25vh;
+        border-radius: 10px;
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: rgb(255, 253, 249);
+    }
+
+    .container p {
+        font-size: 2em;
+        font-weight: 400;
+        margin-top: 5vh;
+        margin-bottom: 2vh;
+    }
+
+    .container span {
+        font-size: 1.3em;
+        margin-bottom: 3vh;
+        color: rgb(96, 35, 35);
+    }
+
+    .container input {
+        width: 20vw;
+        height: 8vh;
+        border-radius: 10px;
+        border: 1px solid #d9d9d9;
+        padding-left: 1vw;
+        margin-bottom: 3.5vh;
+        font-size: 0.8em;
+        font-weight: 400;
+    }
+
+    .container #result_btn {
+        width: 15vw;
+        height: 5vh;
+        border: none;
+        border-radius: 10px;
+        background-color: blanchedalmond;
+        color: rgb(54, 54, 54);
+        cursor: pointer;
+    }
+
+    #div_resultado {    
+        width: 40vw;
+        height: 50vh;
+        display: none;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        border-radius: 10px;
+        font-size: 1em;
+    }
+
+    #conteudo_resultado {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-items: center;
+        gap: 15px;
+        font-size: 1.2em;
+    }
+
+    #btn_fechar {
+        position: absolute;
+        border: none;
+        color: white;
+        background-color: #d9d9d9;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        top: 10px;
+        right: 10px;
+    }
+
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+    }
+</style>
+
+<body>
+    <div id="overlay"></div>
+    <div class="container">
+        <p>Defina de 0 a 10 seus níveis de:</p>
+        <input type="number" id="nivel_coragem" placeholder="Coragem">
+        <input type="number" id="nivel_inteligencia" placeholder="Inteligência">
+        <input type="number" id="nivel_sensibilidade" placeholder="Sensibilidade">
+        <input type="number" id="nivel_temperamento" placeholder="Temperamento">
+
+        <button id="result_btn" onclick="analisar()">Ver resultado</button>
+
+        <div id="div_resultado">
+            <button id="btn_fechar" onclick="fechar()">X</button>
+            <div id="conteudo_resultado"></div>
+        </div>
+    </div>
+</body>
+<script>
+    function analisar() {
+        let inteligencia = Number(nivel_inteligencia.value);
+        let coragem = Number(nivel_coragem.value);
+        let sensibilidade = Number(nivel_sensibilidade.value);
+        let temperamento = Number(nivel_temperamento.value);
+
+        conteudo_resultado.style.flexDirection = "column";
+        if (inteligencia >= 8 && coragem >= 7 && temperamento <= 6 || inteligencia > sensibilidade && inteligencia > coragem) {
+            conteudo_resultado.innerHTML = ` ❤️Florzinha <img src="https://media1.tenor.com/m/C87bn-H-1bcAAAAd/florzinha-blossom.gif" alt="Florzinha">`;
+            div_resultado.style.backgroundColor = "pink";
+            div_resultado.style.color = "red";
+        } else if (sensibilidade >= 8 && temperamento <= 5 || sensibilidade > inteligencia && sensibilidade > coragem) {
+            conteudo_resultado.innerHTML = `<img src="https://i.pinimg.com/originals/b3/3a/6f/b33a6ff7fd287f9a669308dd943f73e5.gif" alt="Lindinha"> 💙Lindinha`;
+            div_resultado.style.backgroundColor = "lightblue";
+            div_resultado.style.color = "blue";
+        } else if (coragem >= 8 || temperamento >= 7) {
+            conteudo_resultado.innerHTML = `<img src="https://i.pinimg.com/originals/a2/65/a5/a265a57f1ee3cd4f1c949fbf75f9be28.gif" alt="Docinho"> 💚Docinho`;
+            conteudo_resultado.style.flexDirection = "row";
+            div_resultado.style.backgroundColor = "lightgreen";
+            div_resultado.style.color = "forestgreen";
+        } else {
+            conteudo_resultado.innerHTML = "Você não se encaixa em nenhuma das meninas superpoderosas!";
+            div_resultado.style.backgroundColor = "white";
+            div_resultado.style.color = "black";
+        }
+
+        overlay.style.zIndex = 1;
+        overlay.style.display = "block";
+
+        div_resultado.style.zIndex = 2;
+        div_resultado.style.display = "flex";
+    }
+
+    function fechar() {
+        overlay.style.display = "none";
+        div_resultado.style.zIndex = -1;
+    }
+</script>
+
+</html>

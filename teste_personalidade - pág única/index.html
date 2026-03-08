@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de personalidade</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    img {
+        width: 20vw;
+        height: 25vh;
+        border-radius: 10px;
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        background-color: rgb(255, 253, 249);
+    }
+
+    .container p {
+        font-size: 2em;
+        font-weight: 400;
+        margin-top: 5vh;
+        margin-bottom: 2vh;
+    }
+
+    .container span {
+        font-size: 1.3em;
+        margin-bottom: 3vh;
+        color: rgb(96, 35, 35);
+    }
+
+    .container input {
+        width: 20vw;
+        height: 8vh;
+        border-radius: 10px;
+        border: 1px solid #d9d9d9;
+        padding-left: 1vw;
+        margin-bottom: 3.5vh;
+        font-size: 0.8em;
+        font-weight: 400;
+    }
+
+    #container_btn {
+        width: 15vw;
+        height: 5vh;
+        border: none;
+        border-radius: 10px;
+        background-color: blanchedalmond;
+        color: rgb(54, 54, 54);
+        cursor: pointer;
+    }
+
+    #teste_menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    #voltar_btn {
+        width: 15vw;
+        height: 5vh;
+        border: none;
+        border-radius: 10px;
+        background-color: blanchedalmond;
+        color: rgb(54, 54, 54);
+        cursor: pointer;
+    }
+
+    #div_resultado {    
+        width: 40vw;
+        height: 50vh;
+        display: none;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        border-radius: 10px;
+        font-size: 1em;
+        padding: 50px;
+    }
+
+    #conteudo_resultado {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-items: center;
+        gap: 15px;
+        font-size: 1.2em;
+    }
+
+    #btn_fechar {
+        position: absolute;
+        border: none;
+        color: white;
+        background-color: #d9d9d9;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        top: 10px;
+        right: 10px;
+    }
+
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+    }
+
+    #teste_meninas {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center
+    }
+
+    #teste_scooby {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center
+    }
+
+    #voltar_btn {
+        display: none;
+    }
+
+</style>
+<body>
+    <div id="overlay"></div>
+    <div class="container">
+        <div id="teste_menu">
+            <p>Clique abaixo qual teste deseja fazer:</p>
+    
+            <button id="container_btn" onclick="testeMeninas()">Meninas Superpoderosas</button>
+            <button id="container_btn" onclick="testeScooby()">Scooby Doo</button>
+        </div>
+
+        <div id="teste_meninas">
+            <h1>Teste Meninas Super Poderosas</h1>
+
+            <p>Defina de 0 a 10 seus níveis de:</p>
+            <input type="number" id="nivel_coragem" placeholder="Coragem">
+            <input type="number" id="nivel_inteligencia" placeholder="Inteligência">
+            <input type="number" id="nivel_sensibilidade" placeholder="Sensibilidade">
+            <input type="number" id="nivel_temperamento" placeholder="Temperamento">
+    
+            <button id="container_btn" onclick="analisarTesteMeninas()">Ver resultado</button>
+        </div>
+
+        <div id="teste_scooby">
+            <h1>Teste Scooby Doo</h1>
+
+            <p>Defina de 0 a 10 seus níveis de:</p>
+            <input type="number" id="input_coragem" placeholder="Coragem">
+            <input type="number" id="input_fome" placeholder="Fome">
+            <input type="number" id="input_curioso" placeholder="Curiosidade">
+            <input type="number" id="input_inteligencia" placeholder="Inteligência">
+
+            <button id="container_btn" onclick="analisarTesteScooby()">Ver resultado</button>
+        </div>
+
+        <button id="voltar_btn" onclick="voltar()">Voltar</button>
+
+        <div id="div_resultado">
+            <button id="btn_fechar" onclick="fechar()">X</button>
+            <div id="conteudo_resultado"></div>
+        </div>
+    </div>
+</body>
+<script>
+    function resetarInputs() {
+        nivel_coragem.value = "";
+        nivel_inteligencia.value = "";
+        nivel_sensibilidade.value = "";
+        nivel_temperamento.value = "";
+
+        input_coragem.value = "";
+        input_fome.value = "";
+        input_curioso.value = "";
+        input_inteligencia.value = "";
+    }
+
+    function testeMeninas() {
+        resetarInputs();
+
+        teste_menu.style.display = "none";
+        teste_scooby.style.display = "none";
+
+        teste_meninas.style.display = "flex";
+        voltar_btn.style.display = "block";
+    }
+
+    function testeScooby() {
+        resetarInputs();
+
+        teste_menu.style.display = "none";
+        teste_meninas.style.display = "none";
+
+        teste_scooby.style.display = "flex";
+        voltar_btn.style.display = "block";
+    }
+
+    function resetarResultado() {
+        conteudo_resultado.style.flexDirection = "column";
+        div_resultado.style.color = "black";
+    }
+
+    function exibirPopUp() {
+        overlay.style.zIndex = 1;
+        overlay.style.display = "block";
+
+        div_resultado.style.zIndex = 2;
+        div_resultado.style.display = "flex";
+    }
+
+    function analisarTesteMeninas() {
+        resetarResultado();
+
+        let inteligencia = Number(nivel_inteligencia.value);
+        let coragem = Number(nivel_coragem.value);
+        let sensibilidade = Number(nivel_sensibilidade.value);
+        let temperamento = Number(nivel_temperamento.value);
+
+        if (inteligencia >= 8 && coragem >= 7 && temperamento <= 6 || inteligencia > sensibilidade && inteligencia > coragem) {
+            conteudo_resultado.innerHTML = ` ❤️Florzinha <img src="https://media1.tenor.com/m/C87bn-H-1bcAAAAd/florzinha-blossom.gif" alt="Florzinha">`;
+            div_resultado.style.backgroundColor = "pink";
+            div_resultado.style.color = "red";
+        } else if (sensibilidade >= 8 && temperamento <= 5 || sensibilidade > inteligencia && sensibilidade > coragem) {
+            conteudo_resultado.innerHTML = `<img src="https://i.pinimg.com/originals/b3/3a/6f/b33a6ff7fd287f9a669308dd943f73e5.gif" alt="Lindinha"> 💙Lindinha`;
+            div_resultado.style.backgroundColor = "lightblue";
+            div_resultado.style.color = "blue";
+        } else if (coragem >= 8 || temperamento >= 7) {
+            conteudo_resultado.innerHTML = `<img src="https://i.pinimg.com/originals/a2/65/a5/a265a57f1ee3cd4f1c949fbf75f9be28.gif" alt="Docinho"> 💚Docinho`;
+            conteudo_resultado.style.flexDirection = "row";
+            div_resultado.style.backgroundColor = "lightgreen";
+            div_resultado.style.color = "forestgreen";
+        } else {
+            conteudo_resultado.innerHTML = "Você não se encaixa em nenhuma das meninas superpoderosas!";
+            div_resultado.style.backgroundColor = "white";
+            div_resultado.style.color = "black";
+        }
+
+        exibirPopUp();
+    }
+
+    function analisarTesteScooby() {
+        resetarResultado();
+
+        let coragem = Number(input_coragem.value)   
+        let inteligencia = Number(input_inteligencia.value)
+        let curiosidade = Number(input_curioso.value)
+        let fome = Number(input_fome.value)
+
+        if (coragem >= 9 && inteligencia >= 7) {
+            conteudo_resultado.innerHTML = `<img src="https://64.media.tumblr.com/ae53549f37c720af59e759bfbfbc1b7d/ace24a3f6baca4d3-18/s540x810/676b58d0db3359492fcabda6c27db1955f814543.gifv" alt="Fred"> Pela sua coragem sem limite e inteligencia mediana você seria o Fred`
+        } else if (curiosidade >= 9 && inteligencia >= 9) {
+            conteudo_resultado.innerHTML = `<img src="https://i.pinimg.com/originals/d6/88/2c/d6882cd3f134979be924254b186cb01b.gif" alt="Velma"> Pela sua curiosidade sem Precedentes e por ser quase o Albert Einstein você seria a Velma`
+        } else if (coragem >= 7 || inteligencia >= 8) {
+            conteudo_resultado.innerHTML = `<img src="https://media1.tenor.com/m/Ok1ZcxBQ3sQAAAAC/daphne-blake-scooby-doo-mystery-incorperated.gif" alt="Daphne"> Pela sua coragem de leoa e por sempre tirar 10 nas provas você seria a Daphne`
+        } else if (fome >= 9 && curiosidade >= 8) {
+            conteudo_resultado.innerHTML = `<img src="https://i.pinimg.com/originals/67/a2/ba/67a2baf6c07d0ce8ab96a16333b9e076.gif" alt="Salsicha"> Pela sua fome de leão e pela curiosidade quase te matar varias vezes você seria a Salsicha`
+        } else if (fome >= 10) {
+            conteudo_resultado.innerHTML = `<img src="https://i.pinimg.com/originals/97/2d/fb/972dfb51561ea4cdd139e05fae2f03bf.gif" alt="Scooby-Doo"> Pela sua fome de cachorro vira-lata você seria o <b>Scooby-Doo</b>`
+        } else {
+            conteudo_resultado.innerHTML = `Parece que você não é parecido com ninguém, você pode tentar denovo`
+        }
+
+        exibirPopUp();
+        
+        div_resultado.style.backgroundColor = "rgb(255, 253, 249)";
+    }
+
+    function fechar() {
+        overlay.style.display = "none";
+        div_resultado.style.display = "none";
+    }
+    
+    function voltar() {
+        teste_menu.style.display = "flex";
+        teste_meninas.style.display = "none";
+        teste_scooby.style.display = "none";
+        voltar_btn.style.display = "none";
+    }
+</script>
+</html>
