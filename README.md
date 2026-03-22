@@ -6,4 +6,4 @@ Este projeto foi desenvolvido como atividade da disciplina de Algoritmos e consi
 
 - [Isabella Cardoso](https://github.com/isacardosods)
 - [Pedro Ludovic](https://github.com/PedroSpTech)
-- [Raphael Canuto](https://github.com/raphael-canuto)
+- [Raphael Canuto](https://github.com/Raphael567)
